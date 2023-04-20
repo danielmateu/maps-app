@@ -14,6 +14,4 @@ export const placesReducer = (state: PlacesState, action:PlacesAction  ): Places
         default:
             return state;
     }
-
-
 }
