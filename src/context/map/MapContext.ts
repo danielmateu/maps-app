@@ -5,6 +5,9 @@ import { createContext } from 'react';
 interface MapContextProps {
     isMapReady: boolean;
     map?: Map;
+
+    // Methods
+    setMap: (map: Map) => void;
 }
 
 export const MapContext = /*#__PURE__*/createContext({} as MapContextProps);

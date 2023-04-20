@@ -21,11 +21,21 @@ interface Props {
 
 export const MapProvider = ({children}: Props) => {
 
-    const [state, dispath] =useReducer(mapReducer, INITIAL_STATE)
+    const [state, dispath] =useReducer(mapReducer, INITIAL_STATE);
+
+    const setMap = (map: Map) => {
+        dispath({
+            type: 'setMap',
+            payload: map
+        })
+    }
 
     return (
         <MapContext.Provider value={{
-                ...state
+                ...state,
+
+                // Methods
+                setMap,
             }}
         >
             {children}
