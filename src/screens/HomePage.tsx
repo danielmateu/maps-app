@@ -1,9 +1,11 @@
-import { MapView } from "../components"
+import { BtnMyLocation, MapView, ReactLogo } from "../components"
 
 
 const HomePage = () => {
     return (
         <>
+            <ReactLogo/>
+            <BtnMyLocation/>
             <MapView/>
         </>
     )
