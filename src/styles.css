@@ -1,15 +1,3 @@
-/* .location-container{
-    position: fixed;
-    top: 1em;
-    left: 1em;
-    z-index: 9999;
-    display: flex;
-    flex-direction: column;
-    gap: 1em;
-    justify-content: center;
-    align-items: center;
-    max-width: 13em;
-} */
 
 .search-container {
     position: fixed;
@@ -40,3 +28,6 @@
     z-index: 9999;
 }
 
+.pointer {
+    cursor: pointer;
+}
