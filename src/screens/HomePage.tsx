@@ -1,12 +1,22 @@
-import { BtnMyLocation, MapView, ReactLogo } from "../components"
+import {
+    BtnMyLocation,
+    MapView,
+    // ReactLogo,
+    SearchBar
+} from "../components"
 
 
 const HomePage = () => {
     return (
         <>
-            <ReactLogo/>
-            <BtnMyLocation/>
-            <MapView/>
+            <div
+                className="location-container"
+            >
+                <BtnMyLocation />
+                <SearchBar />
+            </div>
+            {/* <ReactLogo/> */}
+            <MapView />
         </>
     )
 }

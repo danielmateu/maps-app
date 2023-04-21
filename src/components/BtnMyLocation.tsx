@@ -21,12 +21,7 @@ export const BtnMyLocation = () => {
         <button
             onClick={onClick}
             className="btn btn-primary"
-            style={{
-                position: 'fixed',
-                top: 10,
-                left: 10,
-                zIndex: 999,
-            }}
+            
         >Mi Ubicación
         </button>
     )

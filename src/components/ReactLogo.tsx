@@ -1,7 +1,5 @@
 import reactLogo from '../assets/react.svg'
 
-
-
 export const ReactLogo = () => {
     return (
         <img
