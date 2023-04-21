@@ -1,9 +1,11 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
-import { Map, Marker, Popup } from "mapbox-gl";
+import { LngLatBounds, Map, Marker, Popup } from "mapbox-gl";
 import { MapContext } from "./MapContext";
 import { useReducer, useContext, useEffect } from 'react';
 import { mapReducer } from "./mapReducer";
 import { PlacesContext } from "..";
+import { directionsApi } from "../../apis";
+import { DirectionsResponse } from "../../interfaces/directions";
 
 
 export interface MapState {
@@ -56,13 +58,8 @@ export const MapProvider = ({ children }: Props) => {
 
         // Todo: Nuevos marcadores
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [places])
-
-
-
-
-
 
     const setMap = (map: Map) => {
 
@@ -86,12 +83,36 @@ export const MapProvider = ({ children }: Props) => {
         })
     }
 
+    const getRouteBetweenPoints = async (start: number[], end: number[]) => {
+
+        const resp = await directionsApi.get<DirectionsResponse>(`/${start.join(',')}; ${end.join(',')}`);
+
+        const { distance, duration, geometry } = resp.data.routes[0];
+        // const { coordinates, type } = geometry;
+
+        let kms = distance / 1000;
+        kms = Math.round(kms * 100) / 100;
+
+        // let hours = duration / 3600;
+        // hours = Math.round(hours * 100) / 100;
+
+        let minutes = duration / 60;
+        minutes = Math.round(minutes * 100) / 100;
+
+        console.log({ kms, minutes });
+
+
+
+        // console.log(resp);
+    }
+
     return (
         <MapContext.Provider value={{
             ...state,
 
             // Methods
             setMap,
+            getRouteBetweenPoints
         }}
         >
             {children}
