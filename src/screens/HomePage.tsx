@@ -9,12 +9,10 @@ import {
 const HomePage = () => {
     return (
         <>
-            <div
-                className="location-container"
-            >
-                <BtnMyLocation />
-                <SearchBar />
-            </div>
+
+            <SearchBar />
+            <BtnMyLocation />
+
             {/* <ReactLogo/> */}
             <MapView />
         </>

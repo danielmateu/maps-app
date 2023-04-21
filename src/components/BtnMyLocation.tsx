@@ -20,9 +20,9 @@ export const BtnMyLocation = () => {
     return (
         <button
             onClick={onClick}
-            className="btn btn-primary"
+            className="btn btn-primary search-btn"
             
-        >Mi Ubicación
+        >Where am I?
         </button>
     )
 }

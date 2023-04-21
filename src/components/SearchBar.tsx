@@ -1,5 +1,6 @@
 import { ChangeEvent, useContext, useRef } from "react"
 import { PlacesContext } from "../context"
+import { SearchResults } from "."
 
 export const SearchBar = () => {
 
@@ -17,7 +18,9 @@ export const SearchBar = () => {
             // Limpiar el input
             event.target.value = ''
             // console.log('Debounce value: ', event.target.value)
-        }, 500)
+        }, 1500)
+
+        
 
     }
 
@@ -31,6 +34,8 @@ export const SearchBar = () => {
                 className="search-input"
                 onChange={onQueryChanged}
             />
+
+            <SearchResults/>
         </div>
     )
 }

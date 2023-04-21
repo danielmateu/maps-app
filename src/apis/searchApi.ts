@@ -8,7 +8,7 @@ const searchApi = axios.create({
     // },
     params: {
         access_token: "pk.eyJ1IjoiZGFuaWRldi1iY24iLCJhIjoiY2xhNml6NzBtMDFnMTNvbXF4bWs3M3BzdyJ9.KVnHCs7UweqcqiKo5wFObA",
-        limit: 5,
+        limit: 4,
         language: "es",
     },
 });
