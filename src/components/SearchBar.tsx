@@ -1,8 +1,9 @@
-import { ChangeEvent, useRef } from "react"
-
+import { ChangeEvent, useContext, useRef } from "react"
+import { PlacesContext } from "../context"
 
 export const SearchBar = () => {
 
+    const {searchPlacesByQuery} = useContext(PlacesContext)
     // Debounce manual implementation
     const debounceRef = useRef<ReturnType<typeof setTimeout>>()
 
@@ -12,9 +13,10 @@ export const SearchBar = () => {
 
         debounceRef.current = setTimeout(() => {
             // Buscar o ejecutar la consulta
-            
-
-            console.log('Debounce value: ', event.target.value)
+            searchPlacesByQuery(event.target.value)
+            // Limpiar el input
+            event.target.value = ''
+            // console.log('Debounce value: ', event.target.value)
         }, 500)
 
     }
