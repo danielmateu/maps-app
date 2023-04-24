@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
-import { LngLatBounds, Map, Marker, Popup } from "mapbox-gl";
+import { AnySourceData, LngLatBounds, Map, Marker, Popup } from "mapbox-gl";
 import { MapContext } from "./MapContext";
 import { useReducer, useContext, useEffect } from 'react';
 import { mapReducer } from "./mapReducer";
@@ -88,23 +88,72 @@ export const MapProvider = ({ children }: Props) => {
         const resp = await directionsApi.get<DirectionsResponse>(`/${start.join(',')}; ${end.join(',')}`);
 
         const { distance, duration, geometry } = resp.data.routes[0];
-        // const { coordinates, type } = geometry;
+        const { coordinates: coords } = geometry;
 
         let kms = distance / 1000;
         kms = Math.round(kms * 100) / 100;
-
-        // let hours = duration / 3600;
-        // hours = Math.round(hours * 100) / 100;
 
         let minutes = duration / 60;
         minutes = Math.round(minutes * 100) / 100;
 
         console.log({ kms, minutes });
 
+        // const bounds = new LngLatBounds(
+        //     start,
+        //     start
+        // );
 
+        const bounds = new LngLatBounds();
 
-        // console.log(resp);
+        for (const coord of coords) {
+            const newCoord: [number, number] = [coord[0], coord[1]];
+            bounds.extend(newCoord);
+        }
+
+        state.map?.fitBounds(bounds, {
+            padding: 100
+        })
+
+        // polyline
+        const sourceData: AnySourceData = {
+            type: 'geojson',
+            data: {
+                type: 'FeatureCollection',
+                features: [
+                    {
+                        type: 'Feature',
+                        properties: {},
+                        geometry: {
+                            type: 'LineString',
+                            coordinates: coords
+                        }
+                    }
+                ]
+            }
+        }
+        // Todo: Limpiar polylines si existe
+        if(state.map?.getLayer('RouteString')){
+            state.map?.removeLayer('RouteString');
+            state.map?.removeSource('RouteString');
+        }
+
+        state.map?.addSource('RouteString', sourceData);
+
+        state.map?.addLayer({
+            id: 'RouteString',
+            type: 'line',
+            source: 'RouteString',
+            layout: {
+                'line-join': 'round',
+                'line-cap': 'round'
+            },
+            paint: {
+                'line-color': '#888',
+                'line-width': 4
+            }
+        })
     }
+
 
     return (
         <MapContext.Provider value={{
@@ -119,3 +168,4 @@ export const MapProvider = ({ children }: Props) => {
         </MapContext.Provider>
     )
 }
+
